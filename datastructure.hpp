@@ -1,3 +1,8 @@
+/**
+ * @brief Stack Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
 template <typename T>
 class Stack {
 private:
@@ -45,7 +50,11 @@ public:
         this->size = newSize;
     }
 };
-
+/**
+ * @brief Queue Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
 template <typename T>
 class Queue {
 private:
@@ -100,12 +109,21 @@ public:
     }
 };
 
+/**
+ * @brief Linked List (Single) Node Sturct Containing Template data and Template Pointer next
+ * 
+ * @tparam T 
+ */
 template <typename T>
 struct linkedNode {
     T data;
     linkedNode<T>* next;
 };
-
+/**
+ * @brief Linked List (Single) Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
 template <typename T>
 class LinkedList {
 private:
@@ -159,7 +177,11 @@ public:
         return counter;
     }
 };
-
+/**
+ * @brief Linked List (Double) Node Sturct Containing Template data and Template Pointer next
+ * 
+ * @tparam T 
+ */
 template <typename T>
 struct DoubleLinkedNode {
     T data;
@@ -168,6 +190,11 @@ struct DoubleLinkedNode {
     DoubleLinkedNode(const T& val) : data(val), next(nullptr), prev(nullptr) {}
 };
 
+/**
+ * @brief Linked List (Double) Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
 template <typename T>
 class DoubleLinkedList {
 private:
