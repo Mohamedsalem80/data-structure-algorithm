@@ -50,6 +50,7 @@ public:
         this->size = newSize;
     }
 };
+
 /**
  * @brief Queue Data Structure Using Template Data Type
  * 
