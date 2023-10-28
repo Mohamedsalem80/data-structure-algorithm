@@ -49,6 +49,10 @@ public:
         this->stack = newStack;
         this->size = newSize;
     }
+
+    int stackSize() const {
+        return this->size;
+    }
 };
 
 /**
@@ -107,6 +111,10 @@ public:
         this->rear -= this->front;
         this->front = 0;
         this->size = newSize;
+    }
+
+    int queueSize() const {
+        return this->size;
     }
 };
 
