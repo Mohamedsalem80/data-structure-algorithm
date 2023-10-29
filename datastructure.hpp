@@ -241,7 +241,6 @@ public:
         if (head != nullptr) {
             head->prev = nullptr;
         } else {
-            // List is now empty
             tail = nullptr;
         }
         delete temp;
@@ -256,7 +255,6 @@ public:
         if (tail != nullptr) {
             tail->next = nullptr;
         } else {
-            // List is now empty
             head = nullptr;
         }
         delete temp;
