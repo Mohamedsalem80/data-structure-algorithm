@@ -29,7 +29,7 @@ void bubble_sort(T arr[], int size) {
  * @brief Selection Sort
  * @attention best: n^2 | average: n^2 | worst: n^2
  * 
- * @tparam T 
+ * @tparam T
  * @param arr array T pointer pointer
  * @param size int
  */
@@ -51,7 +51,7 @@ void selection_sort(T arr[], int size) {
  * @brief Insertion Sort
  * @attention best: n | average: n^2 | worst: n^2
  * 
- * @tparam T 
+ * @tparam T
  * @param arr array T pointer pointer
  * @param size int
  */
@@ -70,8 +70,8 @@ void insertion_sort(T arr[], int size) {
 
 /**
  * @brief Merge Sort Helper
- * @tparam T 
  * 
+ * @tparam T
  * @param arr array T pointer pointer
  * @param l int
  * @param m int
@@ -120,7 +120,7 @@ void merge(T arr[], int l, int m, int r) {
  * @brief Merge Sort
  * @attention best: nlog(n) | average: nlog(n) | worst: nlog(n)
  * 
- * @tparam T 
+ * @tparam T
  * @param arr array T pointer pointer
  * @param l int
  * @param r int
@@ -138,7 +138,7 @@ void merge_sort(T arr[], int l, int r) {
 /**
  * @brief Quick Sort partitioner
  * 
- * @tparam T 
+ * @tparam T
  * @param arr array pointer
  * @param low int
  * @param high int
@@ -167,7 +167,7 @@ int partition(T arr[], int low, int high) {
  * @details Quick Sort Using Two Arrays
  * @attention best: nlog(n) | average: nlog(n) | worst: n^2
  * 
- * @tparam T 
+ * @tparam T
  * @param arr array T pointer pointer
  * @param low int
  * @param high int
