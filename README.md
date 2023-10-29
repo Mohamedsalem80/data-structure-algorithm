@@ -1,9 +1,9 @@
 # data-structure-algorithm
 - Data Structure and Algorithms codes with C++
-### Search Algorithms
+### Searching Algorithms
 - Linear Search
 - Binary Search
-### Sort Algorithms
+### Sorting Algorithms
 - Bubble Sort
 - Selection Sort
 - Insertion Sort
