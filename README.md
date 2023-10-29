@@ -1,8 +1,6 @@
 # data-structure-algorithm
-- ### Data Structure and Algorithms codes with C++
-
+### Data Structure and Algorithms codes with C++
 ---
-
 ### Searching Algorithms
 - Linear Search
 - Binary Search
