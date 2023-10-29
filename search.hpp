@@ -3,9 +3,9 @@
  * @attention best: n | average: n | worst: n
  * 
  * @tparam T 
- * @param arr array tempalte pointer
+ * @param arr array T pointer
  * @param n int
- * @param target template
+ * @param target T
  * @return int
  */
 template <typename T>
@@ -18,10 +18,10 @@ int linearSearch(T arr[], int n, T target) {
  * @brief Binary Search
  * 
  * @tparam T 
- * @param arr array template pointer
+ * @param arr array T pointer
  * @param left int
  * @param right int
- * @param target template
+ * @param target T
  * @return int
  */
 template <typename T>
