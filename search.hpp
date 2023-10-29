@@ -9,7 +9,7 @@
  * @return int
  */
 template <typename T>
-int linearSearch(T arr[], int n, T target) {
+int linear_search(T arr[], int n, T target) {
     for (int i = 0; i < n; i++) if (arr[i] == target) return i;
     return -1;
 }
@@ -25,7 +25,7 @@ int linearSearch(T arr[], int n, T target) {
  * @return int
  */
 template <typename T>
-int binarySearch(T arr[], int left, int right, T target) {
+int binary_search(T arr[], int left, int right, T target) {
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (arr[mid] == target) return mid;
