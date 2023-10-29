@@ -17,7 +17,7 @@ int linear_search(T arr[], int n, T target) {
 /**
  * @brief Binary Search
  * 
- * @tparam T 
+ * @tparam T
  * @param arr array T pointer
  * @param left int
  * @param right int
