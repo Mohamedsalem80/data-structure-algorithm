@@ -281,6 +281,11 @@ public:
     }
 };
 
+/**
+ * @brief Tree node containing the template data and tempalte pointer to right and left branches
+ * 
+ * @tparam T 
+ */
 template <typename T>
 struct treeNode {
     T data;
@@ -294,6 +299,11 @@ struct treeNode {
     }
 };
 
+/**
+ * @brief Binary Tree Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
 template <typename T>
 class BinaryTree {
 private:
