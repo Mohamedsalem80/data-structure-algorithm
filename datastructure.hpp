@@ -280,3 +280,52 @@ public:
         return counter;
     }
 };
+
+template <typename T>
+struct treeNode {
+    T data;
+    treeNode<T>* left;
+    treeNode<T>* right;
+
+    treeNode(T value) {
+        data = value;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+template <typename T>
+class BinaryTree {
+private:
+    treeNode<T>* root;
+
+public:
+    BinaryTree() {
+        root = nullptr;
+    }
+
+    void insert(T value) {
+        if (root == nullptr) {
+            root = new treeNode<T>(value);
+            return;
+        }
+        insertRecursive(root, value);
+    }
+    
+private:
+    void insertRecursive(treeNode<T>* currenttreeNode, T value) {
+        if (value < currenttreeNode->data) {
+            if (currenttreeNode->left == nullptr) {
+                currenttreeNode->left = new treeNode<T>(value);
+            } else {
+                insertRecursive(currenttreeNode->left, value);
+            }
+        } else {
+            if (currenttreeNode->right == nullptr) {
+                currenttreeNode->right = new treeNode<T>(value);
+            } else {
+                insertRecursive(currenttreeNode->right, value);
+            }
+        }
+    }
+};
