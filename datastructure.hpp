@@ -325,17 +325,11 @@ public:
 private:
     void insertRecursive(treeNode<T>* currenttreeNode, T value) {
         if (value < currenttreeNode->data) {
-            if (currenttreeNode->left == nullptr) {
-                currenttreeNode->left = new treeNode<T>(value);
-            } else {
-                insertRecursive(currenttreeNode->left, value);
-            }
+            if (currenttreeNode->left == nullptr) currenttreeNode->left = new treeNode<T>(value);
+            else insertRecursive(currenttreeNode->left, value);
         } else {
-            if (currenttreeNode->right == nullptr) {
-                currenttreeNode->right = new treeNode<T>(value);
-            } else {
-                insertRecursive(currenttreeNode->right, value);
-            }
+            if (currenttreeNode->right == nullptr) currenttreeNode->right = new treeNode<T>(value);
+            else insertRecursive(currenttreeNode->right, value);
         }
     }
 };
