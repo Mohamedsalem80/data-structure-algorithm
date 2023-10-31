@@ -181,8 +181,13 @@ void quick_sort(T arr[], int low, int high) {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Hypird Sorting
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * @brief Shell Sort
+ * @attention best: nlog(n) | average: nlog(n) | worst: n^2
  * 
  * @tparam T 
  * @param arr array T pointer
@@ -204,6 +209,7 @@ void shellSort(T arr[], int size) {
 
 /**
  * @brief Tim Sort
+ * @attention best: n | average: nlog(n) | worst: nlog(n)
  * 
  * @tparam T
  * @param arr array T pointer
@@ -224,4 +230,42 @@ void tim_sort(T arr[], int size) {
             }
         }
     }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Special Case Sorting
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * @brief Radix Count (Radix Sort) Helper
+ * 
+ * @param arr long long
+ * @param n int
+ * @param exp long
+ */
+void radix_count(long long arr[], int n, long exp) {
+    const int RANGE = 10;
+    long long output[n];
+    int count[RANGE] = {0};
+    for (int i = 0; i < n; i++) count[(arr[i] / exp) % RANGE]++;
+    for (int i = 1; i < RANGE; i++) count[i] += count[i - 1];
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[(arr[i] / exp) % RANGE] - 1] = arr[i];
+        count[(arr[i] / exp) % RANGE]--;
+    }
+
+    for (int i = 0; i < n; i++) arr[i] = output[i];
+}
+
+/**
+ * @brief Radix Sort
+ * @attention best: kn | average: kn | worst: kn
+ * 
+ * @param arr 
+ * @param n 
+ */
+void radix_sort(long long arr[], int n) {
+    long long max = arr[0];
+    for (int i = 1; i < n; i++) if (arr[i] > max) max = arr[i];
+    for (long exp = 1; max / exp > 0; exp *= 10) radix_count(arr, n, exp);
 }
