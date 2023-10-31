@@ -10,6 +10,7 @@
 - Insertion Sort
 - Merge Sort
 - Quick Sort
+- Shell Sort
 - Tim Sort
 ### Data Structures
 - Stack
