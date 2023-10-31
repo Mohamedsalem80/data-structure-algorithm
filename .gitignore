@@ -1,1 +1,3 @@
-*.txt
+/*.txt
+/test*
+/testing*
