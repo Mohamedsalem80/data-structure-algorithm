@@ -12,6 +12,10 @@
 - Quick Sort
 ### Data Structures
 - Stack
+- StackLL (Stack Using Linked List)
 - Queue
+- CircularQueue
+- QueueDLL (Queue Using Double Lnked List)
 - Linked List
 - Double Linked List
+- Binary Tree
