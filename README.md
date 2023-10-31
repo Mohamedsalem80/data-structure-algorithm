@@ -12,7 +12,7 @@
 - Quick Sort
 - Shell Sort
 - Tim Sort
-- Radic Sort
+- Radix Sort
 ### Data Structures
 - Stack
 - StackLL (Stack Using Linked List)
