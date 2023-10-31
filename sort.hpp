@@ -239,7 +239,7 @@ void tim_sort(T arr[], int size) {
 /**
  * @brief Radix Count (Radix Sort) Helper
  * 
- * @param arr long long
+ * @param arr array long long pointer
  * @param n int
  * @param exp long
  */
@@ -261,8 +261,8 @@ void radix_count(long long arr[], int n, long exp) {
  * @brief Radix Sort
  * @attention best: kn | average: kn | worst: kn
  * 
- * @param arr 
- * @param n 
+ * @param arr array long long pointer
+ * @param n int
  */
 void radix_sort(long long arr[], int n) {
     long long max = arr[0];
