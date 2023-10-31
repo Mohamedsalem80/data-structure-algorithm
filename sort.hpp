@@ -3,7 +3,7 @@
  * @attention
  * 
  * @tparam T
- * @param arr array T pointer pointer
+ * @param arr array T pointer
  * @param size int
  */
 template <typename T>
@@ -30,7 +30,7 @@ void bubble_sort(T arr[], int size) {
  * @attention best: n^2 | average: n^2 | worst: n^2
  * 
  * @tparam T
- * @param arr array T pointer pointer
+ * @param arr array T pointer
  * @param size int
  */
 template <typename T>
@@ -52,7 +52,7 @@ void selection_sort(T arr[], int size) {
  * @attention best: n | average: n^2 | worst: n^2
  * 
  * @tparam T
- * @param arr array T pointer pointer
+ * @param arr array T pointer
  * @param size int
  */
 template <typename T>
@@ -72,7 +72,7 @@ void insertion_sort(T arr[], int size) {
  * @brief Merge Sort Helper
  * 
  * @tparam T
- * @param arr array T pointer pointer
+ * @param arr array T pointer
  * @param l int
  * @param m int
  * @param r int
@@ -121,7 +121,7 @@ void merge(T arr[], int l, int m, int r) {
  * @attention best: nlog(n) | average: nlog(n) | worst: nlog(n)
  * 
  * @tparam T
- * @param arr array T pointer pointer
+ * @param arr array T pointer
  * @param l int
  * @param r int
  */
@@ -139,7 +139,7 @@ void merge_sort(T arr[], int l, int r) {
  * @brief Quick Sort partitioner
  * 
  * @tparam T
- * @param arr array pointer
+ * @param arr array T pointer
  * @param low int
  * @param high int
  * @return int
@@ -168,7 +168,7 @@ int partition(T arr[], int low, int high) {
  * @attention best: nlog(n) | average: nlog(n) | worst: n^2
  * 
  * @tparam T
- * @param arr array T pointer pointer
+ * @param arr array T pointer
  * @param low int
  * @param high int
  */
