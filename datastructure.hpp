@@ -55,39 +55,6 @@ public:
     }
 };
 
-/**
- * @brief Stack Using Linked List Data Structure Using Template Data Type
- * 
- * @tparam T 
- */
-template <typename T>
-class StackLL {
-private:
-    LinkedList<T> list;
-
-public:
-    void push(const T& item) {
-        list.push(item);
-    }
-
-    T pop() {
-        if (isEmpty()) throw std::out_of_range("Stack is empty");
-        return list.pop();
-    }
-
-    T& peek() const {
-        if (isEmpty()) throw std::out_of_range("Stack is empty");
-        return list.peek();
-    }
-
-    bool isEmpty() const {
-        return list.isEmpty();
-    }
-
-    int size() const {
-        return list.size();
-    }
-};
 
 /**
  * @brief Queue Data Structure Using Template Data Type
@@ -149,40 +116,6 @@ public:
 
     int queueSize() const {
         return this->size;
-    }
-};
-
-/**
- * @brief Queue Using Double Linked List Data Structure Using Template Data Type
- * 
- * @tparam T 
- */
-template <typename T>
-class QueueDLL {
-private:
-    DoubleLinkedList<T> list;
-
-public:
-    void enqueue(const T& item) {
-        list.push(item);
-    }
-
-    T dequeue() {
-        if (isEmpty()) throw std::out_of_range("Queue is empty");
-        return list.shift();
-    }
-
-    T& peek() const {
-        if (isEmpty()) throw std::out_of_range("Queue is empty");
-        return list.peek();
-    }
-
-    bool isEmpty() const {
-        return list.isEmpty();
-    }
-
-    int size() const {
-        return list.size();
     }
 };
 
@@ -409,6 +342,74 @@ public:
             temp = temp->next;
         }
         return counter;
+    }
+};
+
+/**
+ * @brief Stack Using Linked List Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
+template <typename T>
+class StackLL {
+private:
+    LinkedList<T> list;
+
+public:
+    void push(const T& item) {
+        list.push(item);
+    }
+
+    T pop() {
+        if (isEmpty()) throw std::out_of_range("Stack is empty");
+        return list.pop();
+    }
+
+    T& peek() const {
+        if (isEmpty()) throw std::out_of_range("Stack is empty");
+        return list.peek();
+    }
+
+    bool isEmpty() const {
+        return list.isEmpty();
+    }
+
+    int size() const {
+        return list.size();
+    }
+};
+
+/**
+ * @brief Queue Using Double Linked List Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
+template <typename T>
+class QueueDLL {
+private:
+    DoubleLinkedList<T> list;
+
+public:
+    void enqueue(const T& item) {
+        list.push(item);
+    }
+
+    T dequeue() {
+        if (isEmpty()) throw std::out_of_range("Queue is empty");
+        return list.shift();
+    }
+
+    T& peek() const {
+        if (isEmpty()) throw std::out_of_range("Queue is empty");
+        return list.peek();
+    }
+
+    bool isEmpty() const {
+        return list.isEmpty();
+    }
+
+    int size() const {
+        return list.size();
     }
 };
 
