@@ -70,10 +70,10 @@ private:
 
 public:
     Queue(int size = 1) {
-        this->size = size;
-        this->queue = new T[size];
         this->front = 0;
         this->rear = -1;
+        this->size = size;
+        this->queue = new T[size];
     }
 
     ~Queue() {
@@ -115,6 +115,69 @@ public:
 
     int queueSize() const {
         return this->size;
+    }
+};
+
+/**
+ * @brief Circular Queue Data Structure Using Template Data Type
+ * 
+ * @tparam T 
+ */
+template <typename T>
+class CircularQueue {
+private:
+    T* circularQueue;
+    int front;
+    int rear;
+    int size;
+
+public:
+    CircularQueue(int size = 10) {
+        front = -1;
+        rear = -1;
+        this->size = size;
+        this->circularQueue = new T[size];
+    }
+
+    ~CircularQueue(){
+        delete[] circularQueue;
+    }
+
+    void enqueue(T item) {
+        if (isFull()) throw std::out_of_range("Circular Queue is full");
+        else if (isEmpty()) {
+            front = rear = 0;
+            circularQueue[rear] = item;
+        } else {
+            rear = (rear + 1) % size;
+            circularQueue[rear] = item;
+        }
+    }
+
+    T dequeue() {
+        if (isEmpty()) throw std::out_of_range("Circular Queue is empty");
+        else {
+            T removedValue = circularQueue[front];
+            if (front == rear) {
+                front = rear = -1;
+            } else {
+                front = (front + 1) % size;
+            }
+            return removedValue;
+        }
+    }
+
+    T& peek() const {
+        if (isEmpty()) throw std::out_of_range("Circular Queue is empty");
+        return this->circularQueue[this->front];
+    }
+
+    bool isEmpty() const {
+        return front == -1 && rear == -1;
+    }
+
+    bool isFull() {
+        return (rear + 1) % size == front;
     }
 };
 
