@@ -180,3 +180,27 @@ void quick_sort(T arr[], int low, int high) {
         quick_sort(arr, pivotIndex + 1, high);
     }
 }
+
+/**
+ * @brief Timsort
+ * 
+ * @tparam T
+ * @param arr array T pointer
+ * @param size int
+ */
+template <typename T>
+void tim_sort(T arr[], int size) {
+    const int minRun = 32;
+
+    for (int i = 0; i < size; i += minRun) insertion_sort(arr + i, std::min(minRun, size - i));
+
+    for (int run = minRun; run < size; run = 2 * run) {
+        for (int start = 0; start < size; start += 2 * run) {
+            int mid = std::min(start + run, size);
+            int end = std::min(start + 2 * run, size);
+            if (mid < end) {
+                merge_sort(arr + start, mid - start, end - start - 1);
+            }
+        }
+    }
+}
