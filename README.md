@@ -12,6 +12,7 @@
 - Quick Sort
 - Shell Sort
 - Tim Sort
+- Bucket Sort
 - Radix Sort
 ### Data Structures
 - Stack
