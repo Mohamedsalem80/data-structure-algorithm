@@ -1,5 +1,5 @@
 # data-structure-algorithm
-### Data Structures and Algorithms codes with C++
+### Data Structures and Algorithms codes with C++, Java, and Python
 ---
 ### Searching Algorithms
 - Linear Search
