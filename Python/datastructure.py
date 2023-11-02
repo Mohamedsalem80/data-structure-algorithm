@@ -1,11 +1,11 @@
 class Stack:
     def __init__(self, size=1):
-        self.top = -1
         self.size = size
         self.stack = [None] * size
+        self.top = -1
 
     def push(self, item):
-        if self.top == self.size - 1:
+        if self.is_full():
             self.resize(self.size * 2)
         self.top += 1
         self.stack[self.top] = item
@@ -15,7 +15,7 @@ class Stack:
             raise IndexError("Stack is empty")
         item = self.stack[self.top]
         self.top -= 1
-        if self.top < self.size // 4:
+        if self.should_shrink():
             self.resize(self.size // 2)
         return item
 
@@ -26,6 +26,12 @@ class Stack:
 
     def is_empty(self):
         return self.top == -1
+
+    def is_full(self):
+        return self.top == self.size - 1
+
+    def should_shrink(self):
+        return self.top < self.size // 4 and self.size > 1
 
     def resize(self, new_size):
         new_stack = [None] * new_size
@@ -44,14 +50,14 @@ class Stack:
 
 
 class Queue:
-    def __init__(self, size=1):
-        self.front = 0
-        self.rear = -1
+    def __init(self, size=1):
         self.size = size
         self.queue = [None] * size
+        self.front = 0
+        self.rear = -1
 
     def enqueue(self, item):
-        if self.rear == self.size - 1:
+        if self.is_full():
             self.resize(self.size * 2)
         self.rear += 1
         self.queue[self.rear] = item
@@ -61,7 +67,7 @@ class Queue:
             raise IndexError("Queue is empty")
         item = self.queue[self.front]
         self.front += 1
-        if self.front > self.size // 4:
+        if self.should_shrink():
             self.resize(self.size // 2)
         return item
 
@@ -72,6 +78,12 @@ class Queue:
 
     def is_empty(self):
         return self.front > self.rear
+
+    def is_full(self):
+        return (self.rear + 1) == self.size
+
+    def should_shrink(self):
+        return self.front > (self.size // 4) and self.size > 1
 
     def resize(self, new_size):
         new_queue = [None] * new_size
@@ -90,13 +102,11 @@ class Queue:
             print(self.queue[i], end=" ")
         print()
 
-
 class CircularQueue:
     def __init__(self, size=10):
-        self.front = -1
-        self.rear = -1
         self.size = size
         self.circularQueue = [None] * size
+        self.front = self.rear = -1
 
     def enqueue(self, item):
         if self.is_full():
@@ -139,110 +149,150 @@ class CircularQueue:
                 current = (current + 1) % self.size
         print()
 
-
-class LinkedListNode:
+class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
-
 
 class LinkedList:
     def __init__(self):
+        self.size = 0
         self.front = None
         self.rear = None
-        self.size = 0
 
-    def insert_in_order(self, datum):
-        temp = LinkedListNode(datum)
-        temp.next = None
-        if self.rear is None:
-            self.rear = self.front = temp
+    def insert_in_order(self, data):
+        new_node = Node(data)
+        new_node.next = None
+        if not self.front:
+            self.rear = self.front = new_node
         else:
-            dtemp = self.front
-            while dtemp.next and dtemp.data <= datum:
-                dtemp = dtemp.next
-            self.front = temp
-            temp.next = dtemp
+            current = self.front
+            while current and data > current.data:
+                current = current.next
+            new_node.next = current
+            if not current:
+                self.rear = new_node
+            self.front = new_node
         self.size += 1
 
-    def delete_item(self, datum):
-        temp = self.front
-        if temp is not None and temp.data == datum:
-            self.front = temp.next
-            del temp
+    def delete_item(self, data):
+        if not self.front:
+            return False
+        if self.front.data == data:
+            if self.front == self.rear:
+                self.rear = None
+            self.front = self.front.next
             self.size -= 1
             return True
-        while temp is not None:
-            if temp.data == datum:
-                break
-            prev = temp
-            temp = temp.next
-        if temp is None:
-            return False
-        prev.next = temp.next
-        del temp
-        self.size -= 1
-        return True
+        current = self.front
+        while current.next:
+            if current.next.data == data:
+                if current.next == self.rear:
+                    self.rear = current
+                current.next = current.next.next
+                self.size -= 1
+                return True
+            current = current.next
+        return False
 
-    def get_item_index(self, datum):
-        temp = self.front
-        i = 0
-        while temp is not None:
-            if temp.data == datum:
-                return i
-            temp = temp.next
-            i += 1
+    def get_item_index(self, data):
+        current = self.front
+        index = 0
+        while current:
+            if current.data == data:
+                return index
+            current = current.next
+            index += 1
         return -1
 
     def delete_index(self, index):
-        if self.front is None:
+        if not self.front:
             raise IndexError("Linked List is empty")
-        temp = self.front
         if index == 0:
-            self.front = temp.next
-            del temp
+            self.front = self.front.next
+            if not self.front:
+                self.rear = None
             self.size -= 1
             return
+        current = self.front
         for i in range(index - 1):
-            if temp is None:
+            if not current:
                 raise IndexError("Index out of range")
-            temp = temp.next
-        if temp is None:
+            current = current.next
+        if not current:
             raise IndexError("Index out of range")
-        if temp.next is None:
+        if not current.next:
             raise IndexError("Index out of range")
-        dtemp = temp.next
-        temp.next = dtemp.next
-        del dtemp
+        current.next = current.next.next
+        if not current.next:
+            self.rear = current
         self.size -= 1
 
     def insert_index(self, item, index):
-        itemp = LinkedListNode(item)
-        itemp.next = None
-        if self.rear is None:
-            self.front = self.rear = itemp
+        new_node = Node(item)
+        new_node.next = None
+        if not self.front:
+            self.front = self.rear = new_node
         else:
-            temp = self.front
+            current = self.front
             for i in range(index - 1):
-                if temp is None:
+                if not current:
                     raise IndexError("Index out of range")
-                temp = temp.next
-            if temp is None:
+                current = current.next
+            if not current:
                 raise IndexError("Index out of range")
-            dtemp = temp.next
-            temp.next = itemp
-            itemp.next = dtemp
+            new_node.next = current.next
+            current.next = new_node
+            if not new_node.next:
+                self.rear = new_node
         self.size += 1
 
-    def insert_first(self, datum):
-        temp = LinkedListNode(datum)
-        temp.next = None
+    def insert_first(self, data):
+        new_node = Node(data)
+        new_node.next = self.front
+        self.front = new_node
+        if not self.rear:
+            self.rear = new_node
+        self.size += 1
 
-class DoubleListNode:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-        self.prev = None
+    def insert_last(self, data):
+        new_node = Node(data)
+        new_node.next = None
+        if not self.front:
+            self.front = self.rear = new_node
+        else:
+            self.rear.next = new_node
+            self.rear = new_node
+        self.size += 1
+
+    def delete_first(self):
+        if not self.front:
+            raise IndexError("Linked List is empty")
+        if self.front == self.rear:
+            self.rear = None
+        self.front = self.front.next
+        self.size -= 1
+
+    def delete_last(self):
+        if not self.front:
+            raise IndexError("Linked List is empty")
+        if self.front == self.rear:
+            self.front = None
+            self.rear = None
+        else:
+            current = self.front
+            while current.next != self.rear:
+                current = current.next
+            current.next = None
+            self.rear = current
+        self.size -= 1
+
+    def print(self):
+        current = self.front
+        while current:
+            print(current.data, end=" ")
+            current = current.next
+        print()
 
 class DoubleLinkedList:
     def __init__(self):
@@ -291,7 +341,42 @@ class DoubleLinkedList:
             current = current.next
         return False
 
-    # Other methods (get_item_index, delete_index, insert_index, insert_first, insert_last, delete_first, delete_last, etc.)
+    def insert_first(self, data):
+        new_node = DoubleListNode(data)
+        if not self.front:
+            self.front = self.rear = new_node
+        else:
+            new_node.next = self.front
+            self.front.prev = new_node
+            self.front = new_node
+        self.size += 1
+
+    def insert_last(self, data):
+        new_node = DoubleListNode(data)
+        new_node.prev = self.rear
+        self.rear.next = new_node
+        self.rear = new_node
+        self.size += 1
+
+    def delete_first(self):
+        if not self.front:
+            raise IndexError("Double Linked List is empty")
+        if self.front == self.rear:
+            self.front = self.rear = None
+        else:
+            self.front = self.front.next
+            self.front.prev = None
+        self.size -= 1
+
+    def delete_last(self):
+        if not self.front:
+            raise IndexError("Double Linked List is empty")
+        if self.front == self.rear:
+            self.front = self.rear = None
+        else:
+            self.rear = self.rear.prev
+            self.rear.next = None
+        self.size -= 1
 
     def print(self):
         current = self.front
