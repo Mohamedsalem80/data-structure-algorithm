@@ -188,9 +188,9 @@ public:
  * @tparam T 
  */
 template <typename T>
-struct linkedNode {
+struct linkedListNode {
     T data;
-    linkedNode<T>* next;
+    linkedListNode<T>* next;
 };
 /**
  * @brief Linked List (Single) Data Structure Using Template Data Type
@@ -200,54 +200,151 @@ struct linkedNode {
 template <typename T>
 class LinkedList {
 private:
-    linkedNode<T>* top;
+    linkedListNode<T>* front;
+    linkedListNode<T>* rear;
+    int size;
 
 public:
     LinkedList() {
-        top = NULL;
+        front = rear = nullptr;
+        size = 0;
     }
 
-    ~LinkedList() {
-        while (top != NULL) {
-            linkedNode<T>* temp = top;
-            top = top->next;
-            delete temp;
+    ~LinkedList(){
+        clear();
+    }
+
+    void insert_in_order(T datum) {
+        linkedListNode<T>* temp, *dtemp;
+        temp = new linkedListNode<T>;
+        temp->data = datum;
+        temp->next = nullptr;
+        if (rear == nullptr) rear = front = temp;
+        else {
+            for (dtemp = front; (dtemp->next != nullptr && dtemp->data <= datum); dtemp = dtemp->next);
+            this->front = temp;
+            temp->next = dtemp;
         }
+        size++;
     }
 
-    void push(const T& item) {
-        linkedNode<T>* temp = new linkedNode<T>;
-        temp->data = item;
-        temp->next = top;
-        top = temp;
+    bool delete_item(T datum) {
+        linkedListNode<T>* temp, *dtemp;
+        for (temp = front; (temp->next != nullptr && temp->next->data != datum); temp = temp->next);
+        dtemp = temp->next;
+        if (dtemp->data == datum) {
+            temp->next = dtemp->next;
+            delete dtemp;
+            size--;
+            return true;
+        }
+        else return false;
     }
 
-    T pop() {
-        if (isEmpty()) throw std::out_of_range("Linked List is empty");
-        linkedNode<T>* temp = top;
-        T data = top->data;
-        top = top->next;
+    int get_item_index(T datum) {
+        linkedListNode<T>* temp;
+        int i = 0;
+        for (temp = front; temp != nullptr; temp = temp->next, i++)
+            if (temp->data == datum) return i;
+        return -1;
+    }
+
+    void delete_index(int index) {
+        if (!front) std::out_of_range("Linked List is empty");
+        linkedListNode<T>* temp, *dtemp;
+        int i = 0;
+        for (temp = front; (temp->next != nullptr && i != (index - 1)); temp = temp->next, i++);
+        dtemp = temp->next;
+        temp->next = dtemp->next;
+        delete dtemp;
+        size--;
+    }
+
+    void insert_index(T item, int index) {
+        linkedListNode<T>* temp, *dtemp, *itemp;
+        itemp = new linkedListNode<T>;
+        itemp->data = item;
+        itemp->next = nullptr;
+        int i = 0;
+        if (rear == nullptr) front = rear = itemp;
+        else {
+            for (temp = front; (temp->next != nullptr && i != (index - 1)); temp = temp->next, i++);
+            dtemp = temp->next;
+            temp->next = itemp;
+            itemp->next = dtemp;
+        }
+        size++;
+    }
+
+    void insert_first(T datum) {
+        linkedListNode<T>* temp;
+        temp = new linkedListNode<T>;
+        temp->data = datum;
+        temp->next = nullptr;
+        if (rear == nullptr) front = rear = temp;
+        else {
+            temp->next = this->front;
+            this->front = temp;
+        }
+        size++;
+    }
+
+    void insert_last(T datum) {
+        linkedListNode<T>* temp;
+        temp = new linkedListNode<T>;
+        temp->data = datum;
+        temp->next = nullptr;
+        if (rear == nullptr) front = rear = temp;
+        else {
+            rear->next = temp;
+            rear = temp;
+        }
+        size++;
+    }
+
+    T delete_first() {
+        if (!front) std::out_of_range("Linked List is empty");
+        linkedListNode<T>* temp;
+        T datum = front->data;
+        temp = front;
+        front = front->next;
         delete temp;
-        return data;
+        if (!this->front) rear = nullptr;
+        size--;
+        return datum;
     }
 
-    T& peek() const {
-        if (isEmpty()) throw std::out_of_range("Linked List is empty");
-        return top->data;
+    T delete_last() {
+        if (!front) std::out_of_range("Linked List is empty");
+        linkedListNode<T>* temp, *dtemp;
+        T datum = this->rear->data;
+        dtemp = this->rear;
+        for (temp = front; temp->next != this->rear; temp = temp->next);
+        this->rear = temp;
+        this->rear->next = nullptr;
+        delete dtemp;
+        size--;
+        return datum;
     }
 
-    bool isEmpty() const {
-        return top == NULL;
+    T peek_first(){
+        return this->front->data;
     }
 
-    int size() const {
-        int counter = 0;
-        linkedNode<T>* temp = top;
-        while (temp != NULL) {
-            counter++;
-            temp = temp->next;
-        }
-        return counter;
+    T peek_last(){
+        return this->rear->data;
+    }
+
+    bool isEmpty() {
+        return front == nullptr;
+    }
+
+    void clear(){
+        while (!!front) delete_first();
+    }
+
+    int getSize(){
+        return size;
     }
 };
 /**
@@ -256,11 +353,10 @@ public:
  * @tparam T 
  */
 template <typename T>
-struct DoubleLinkedNode {
+struct doubleLinedListNode {
     T data;
-    DoubleLinkedNode<T>* next;
-    DoubleLinkedNode<T>* prev;
-    DoubleLinkedNode(const T& val) : data(val), next(nullptr), prev(nullptr) {}
+    doubleLinedListNode<T>* next;
+    doubleLinedListNode<T>* prev;  // New previous pointer for doubly linked list
 };
 
 /**
@@ -271,77 +367,180 @@ struct DoubleLinkedNode {
 template <typename T>
 class DoubleLinkedList {
 private:
-    DoubleLinkedNode<T>* head;
-    DoubleLinkedNode<T>* tail;
+    doubleLinedListNode<T>* front;
+    doubleLinedListNode<T>* rear;
+    int size;
 
 public:
-    DoubleLinkedList() : head(nullptr), tail(nullptr) {}
+    DoubleLinkedList() {
+        front = rear = nullptr;
+        size = 0;
+    }
 
     ~DoubleLinkedList() {
-        while (head != nullptr) {
-            DoubleLinkedNode<T>* temp = head;
-            head = head->next;
-            delete temp;
-        }
+        clear();
     }
 
-    void push(const T& item) {
-        DoubleLinkedNode<T>* newNode = new DoubleLinkedNode<T>(item);
-        if (tail == nullptr) {
-            head = newNode;
-            tail = newNode;
-        } else {
-            newNode->prev = tail;
-            tail->next = newNode;
-            tail = newNode;
+    void insert_in_order(T datum) {
+        doubleLinedListNode<T>* temp, *dtemp;
+        temp = new doubleLinedListNode<T>;
+        temp->data = datum;
+        temp->next = temp->prev = nullptr;  // Initialize prev pointer
+        if (rear == nullptr) {
+            rear = front = temp;
         }
+        else {
+            for (dtemp = front; (dtemp->next != nullptr && dtemp->data <= datum); dtemp = dtemp->next);
+            this->front = temp;
+            temp->next = dtemp;
+            if (dtemp->prev) {
+                dtemp->prev->next = temp;
+                temp->prev = dtemp->prev;
+            }
+            dtemp->prev = temp;
+        }
+        size++;
     }
 
-    T shift() {
-        if (isEmpty()) throw std::out_of_range("Double Linked List is empty");
-        DoubleLinkedNode<T>* temp = head;
-        T data = head->data;
-        head = head->next;
-        if (head != nullptr) {
-            head->prev = nullptr;
-        } else {
-            tail = nullptr;
+    bool delete_item(T datum) {
+        doubleLinedListNode<T>* temp, *dtemp;
+        for (temp = front; (temp->next != nullptr && temp->next->data != datum); temp = temp->next);
+        dtemp = temp->next;
+        if (dtemp->data == datum) {
+            temp->next = dtemp->next;
+            if (dtemp->next) {
+                dtemp->next->prev = temp;
+            }
+            delete dtemp;
+            size--;
+            return true;
+        }
+        else return false;
+    }
+
+    int get_item_index(T datum) {
+        doubleLinedListNode<T>* temp;
+        int i = 0;
+        for (temp = front; temp != nullptr; temp = temp->next, i++)
+            if (temp->data == datum) return i;
+        return -1;
+    }
+
+    void delete_index(int index) {
+        if (!front) std::out_of_range("Linked List is empty");
+        doubleLinedListNode<T>* temp, *dtemp;
+        int i = 0;
+        for (temp = front; (temp->next != nullptr && i != (index - 1)); temp = temp->next, i++);
+        dtemp = temp->next;
+        temp->next = dtemp->next;
+        if (dtemp->next) {
+            dtemp->next->prev = temp;
+        }
+        delete dtemp;
+        size--;
+    }
+
+    void insert_index(T item, int index) {
+        doubleLinedListNode<T>* temp, *dtemp, *itemp;
+        itemp = new doubleLinedListNode<T>;
+        itemp->data = item;
+        itemp->next = itemp->prev = nullptr;
+        int i = 0;
+        if (rear == nullptr) {
+            front = rear = itemp;
+        }
+        else {
+            for (temp = front; (temp->next != nullptr && i != (index - 1)); temp = temp->next, i++);
+            dtemp = temp->next;
+            temp->next = itemp;
+            itemp->next = dtemp;
+            if (dtemp) {
+                dtemp->prev = itemp;
+            }
+            itemp->prev = temp;
+        }
+        size++;
+    }
+
+    void insert_first(T datum) {
+        doubleLinedListNode<T>* temp;
+        temp = new doubleLinedListNode<T>;
+        temp->data = datum;
+        temp->next = temp->prev = nullptr;
+        if (rear == nullptr) {
+            front = rear = temp;
+        }
+        else {
+            temp->next = this->front;
+            this->front->prev = temp;
+            this->front = temp;
+        }
+        size++;
+    }
+
+    void insert_last(T datum) {
+        doubleLinedListNode<T>* temp;
+        temp = new doubleLinedListNode<T>;
+        temp->data = datum;
+        temp->next = temp->prev = nullptr;
+        if (rear == nullptr) {
+            front = rear = temp;
+        }
+        else {
+            rear->next = temp;
+            temp->prev = rear;
+            rear = temp;
+        }
+        size++;
+    }
+
+    T delete_first() {
+        if (!front) std::out_of_range("Linked List is empty");
+        doubleLinedListNode<T>* temp;
+        T datum = front->data;
+        temp = front;
+        front = front->next;
+        if (front) {
+            front->prev = nullptr;
         }
         delete temp;
-        return data;
+        size--;
+        return datum;
     }
 
-    T pop() {
-        if (isEmpty()) throw std::out_of_range("Double Linked List is empty");
-        DoubleLinkedNode<T>* temp = tail;
-        T data = tail->data;
-        tail = tail->prev;
-        if (tail != nullptr) {
-            tail->next = nullptr;
-        } else {
-            head = nullptr;
+    T delete_last() {
+        if (!front) std::out_of_range("Linked List is empty");
+        doubleLinedListNode<T>* temp, *dtemp;
+        T datum = this->rear->data;
+        dtemp = this->rear;
+        temp = dtemp->prev;
+        if (temp) {
+            temp->next = nullptr;
         }
-        delete temp;
-        return data;
+        this->rear = temp;
+        delete dtemp;
+        size--;
+        return datum;
     }
 
-    T& peek() const {
-        if (isEmpty()) throw std::out_of_range("Double Linked List is empty");
-        return head->data;
+    T peek_first(){
+        return this->front->data;
     }
 
-    bool isEmpty() const {
-        return head == nullptr;
+    T peek_last(){
+        return this->rear->data;
     }
 
-    int size() const {
-        int counter = 0;
-        DoubleLinkedNode<T>* temp = head;
-        while (temp != nullptr) {
-            counter++;
-            temp = temp->next;
-        }
-        return counter;
+    bool isEmpty() {
+        return front == nullptr;
+    }
+
+    void clear() {
+        while (!!front) delete_first();
+    }
+
+    int getSize() {
+        return size;
     }
 };
 
@@ -357,17 +556,17 @@ private:
 
 public:
     void push(const T& item) {
-        list.push(item);
+        list.insert_last(item);
     }
 
     T pop() {
         if (isEmpty()) throw std::out_of_range("Stack is empty");
-        return list.pop();
+        return list.delete_last();
     }
 
     T& peek() const {
         if (isEmpty()) throw std::out_of_range("Stack is empty");
-        return list.peek();
+        return list.peek_first();
     }
 
     bool isEmpty() const {
@@ -375,7 +574,7 @@ public:
     }
 
     int size() const {
-        return list.size();
+        return list.getSize();
     }
 };
 
@@ -385,23 +584,23 @@ public:
  * @tparam T 
  */
 template <typename T>
-class QueueDLL {
+class QueueLL {
 private:
-    DoubleLinkedList<T> list;
+    LinkedList<T> list;
 
 public:
     void enqueue(const T& item) {
-        list.push(item);
+        list.insert_first(item);
     }
 
     T dequeue() {
         if (isEmpty()) throw std::out_of_range("Queue is empty");
-        return list.shift();
+        return list.delete_first();
     }
 
     T& peek() const {
         if (isEmpty()) throw std::out_of_range("Queue is empty");
-        return list.peek();
+        return list.peek_first();
     }
 
     bool isEmpty() const {
@@ -409,7 +608,7 @@ public:
     }
 
     int size() const {
-        return list.size();
+        return list.getSize();
     }
 };
 
