@@ -232,6 +232,47 @@ void tim_sort(T arr[], int size) {
     }
 }
 
+/**
+ * @brief Bucket Sort
+ * 
+ * @tparam T 
+ * @param arr array T pointer
+ * @param size int
+ */
+template <typename T>
+void bucketSort(T arr[], int size) {
+    if (size <= 1) return; 
+    T maxVal = arr[0];
+    T minVal = arr[0];
+
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > maxVal) maxVal = arr[i];
+        else minVal = arr[i];
+    }
+
+    int bucketRange = (maxVal - minVal) / size + 1;
+
+    int** buckets = new int*[size];
+    for (int i = 0; i < size; i++) buckets[i] = new int[size];
+
+    int bucketSizes[size] = {0};
+
+    for (int i = 0; i < size; i++) {
+        int index = (arr[i] - minVal) / bucketRange;
+        buckets[index][bucketSizes[index]++] = arr[i];
+    }
+
+    for (int i = 0; i < size; i++) insertionSort(buckets[i], bucketSizes[i]);
+
+    int index = 0;
+    for (int i = 0; i < size; i++)
+        for (int j = 0; j < bucketSizes[i]; j++)
+            arr[index++] = buckets[i][j];
+
+    for (int i = 0; i < size; i++) delete[] buckets[i];
+    delete[] buckets;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Special Case Sorting
 /////////////////////////////////////////////////////////////////////////////////////////////
