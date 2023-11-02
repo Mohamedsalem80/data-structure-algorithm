@@ -427,7 +427,7 @@ public:
     }
 
     void delete_index(int index) {
-        if (!front) std::out_of_range("Linked List is empty");
+        if (!front) std::out_of_range("Double Linked List is empty");
         doubleLinedListNode<T>* temp, *dtemp;
         int i = 0;
         for (temp = front; (temp->next != nullptr && i != (index - 1)); temp = temp->next, i++);
@@ -495,7 +495,7 @@ public:
     }
 
     T delete_first() {
-        if (!front) std::out_of_range("Linked List is empty");
+        if (!front) std::out_of_range("Double Linked List is empty");
         doubleLinedListNode<T>* temp;
         T datum = front->data;
         temp = front;
@@ -509,7 +509,7 @@ public:
     }
 
     T delete_last() {
-        if (!front) std::out_of_range("Linked List is empty");
+        if (!front) std::out_of_range("Double Linked List is empty");
         doubleLinedListNode<T>* temp, *dtemp;
         T datum = this->rear->data;
         dtemp = this->rear;
