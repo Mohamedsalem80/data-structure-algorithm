@@ -1,13 +1,12 @@
 /**
  * @brief Linear Search
- * @attention best: n | average: n | worst: n
  * 
- * @tparam T 
- * @param arr array T pointer
- * @param n int
- * @param target T
- * @return int
- */
+ * @tparam T Data type
+ * @param arr Array of type T
+ * @param n Size of the array
+ * @param target Target element to search for
+ * @return Index of the target element if found, -1 if not found
+*/
 template <typename T>
 int linear_search(T arr[], int n, T target) {
     for (int i = 0; i < n; i++) if (arr[i] == target) return i;
@@ -17,13 +16,13 @@ int linear_search(T arr[], int n, T target) {
 /**
  * @brief Binary Search
  * 
- * @tparam T
- * @param arr array T pointer
- * @param left int
- * @param right int
- * @param target T
- * @return int
- */
+ * @tparam T Data type
+ * @param arr Sorted array of type T
+ * @param left Left index of the search range
+ * @param right Right index of the search range
+ * @param target Target element to search for
+ * @return Index of the target element if found, -1 if not found
+*/
 template <typename T>
 int binary_search(T arr[], int left, int right, T target) {
     while (left <= right) {

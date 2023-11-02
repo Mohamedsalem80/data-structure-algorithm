@@ -1,10 +1,10 @@
 /**
- * @brief Bubble Sort 
- * @attention
+ * @brief Bubble Sort
+ * @attention best: n | average: n^2 | worst: n^2.
  * 
- * @tparam T
- * @param arr array T pointer
- * @param size int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param size The size of the array.
  */
 template <typename T>
 void bubble_sort(T arr[], int size) {
@@ -27,11 +27,11 @@ void bubble_sort(T arr[], int size) {
 
 /**
  * @brief Selection Sort
- * @attention best: n^2 | average: n^2 | worst: n^2
+ * @attention best: n^2 | average: n^2 | worst: n^2.
  * 
- * @tparam T
- * @param arr array T pointer
- * @param size int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param size The size of the array.
  */
 template <typename T>
 void selection_sort(T arr[], int size) {
@@ -49,11 +49,11 @@ void selection_sort(T arr[], int size) {
 
 /**
  * @brief Insertion Sort
- * @attention best: n | average: n^2 | worst: n^2
+ * @attention best: n | average: n^2 | worst: n^2.
  * 
- * @tparam T
- * @param arr array T pointer
- * @param size int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param size The size of the array.
  */
 template <typename T>
 void insertion_sort(T arr[], int size) {
@@ -71,11 +71,11 @@ void insertion_sort(T arr[], int size) {
 /**
  * @brief Merge Sort Helper
  * 
- * @tparam T
- * @param arr array T pointer
- * @param l int
- * @param m int
- * @param r int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param l Index of the left subarray.
+ * @param m Index of the middle element.
+ * @param r Index of the right subarray.
  */
 template <typename T>
 void merge(T arr[], int l, int m, int r) {
@@ -118,12 +118,12 @@ void merge(T arr[], int l, int m, int r) {
 
 /**
  * @brief Merge Sort
- * @attention best: nlog(n) | average: nlog(n) | worst: nlog(n)
+ * @attention best: nlog(n) | average: nlog(n) | worst: nlog(n).
  * 
- * @tparam T
- * @param arr array T pointer
- * @param l int
- * @param r int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param l Index of the left subarray.
+ * @param r Index of the right subarray.
  */
 template <typename T>
 void merge_sort(T arr[], int l, int r) {
@@ -138,11 +138,11 @@ void merge_sort(T arr[], int l, int r) {
 /**
  * @brief Quick Sort partitioner
  * 
- * @tparam T
- * @param arr array T pointer
- * @param low int
- * @param high int
- * @return int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param low Index of the lower boundary.
+ * @param high Index of the upper boundary.
+ * @return Index of the pivot element.
  */
 template <typename T>
 int partition(T arr[], int low, int high) {
@@ -164,13 +164,13 @@ int partition(T arr[], int low, int high) {
 
 /**
  * @brief Quick Sort
- * @details Quick Sort Using Two Arrays
- * @attention best: nlog(n) | average: nlog(n) | worst: n^2
+ * @details This function sorts an array using another.
+ * @attention best: nlog(n) | average: nlog(n) | worst: n^2.
  * 
- * @tparam T
- * @param arr array T pointer
- * @param low int
- * @param high int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param low Index of the lower boundary.
+ * @param high Index of the upper boundary.
  */
 template <typename T>
 void quick_sort(T arr[], int low, int high) {
@@ -187,11 +187,11 @@ void quick_sort(T arr[], int low, int high) {
 
 /**
  * @brief Shell Sort
- * @attention best: nlog(n) | average: nlog(n) | worst: n^2
+ * @attention best: nlog(n) | average: nlog(n) | worst: n^2.
  * 
- * @tparam T 
- * @param arr array T pointer
- * @param size int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param size The size of the array.
  */
 template<typename T>
 void shellSort(T arr[], int size) {
@@ -209,11 +209,11 @@ void shellSort(T arr[], int size) {
 
 /**
  * @brief Tim Sort
- * @attention best: n | average: nlog(n) | worst: nlog(n)
+ * @attention best: n | average: nlog(n) | worst: nlog(n).
  * 
- * @tparam T
- * @param arr array T pointer
- * @param size int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param size The size of the array.
  */
 template <typename T>
 void tim_sort(T arr[], int size) {
@@ -232,12 +232,14 @@ void tim_sort(T arr[], int size) {
     }
 }
 
+
 /**
  * @brief Bucket Sort
+ * @attention best: n | average: k+n | worst: n^2.
  * 
- * @tparam T 
- * @param arr array T pointer
- * @param size int
+ * @tparam T The data type of the array.
+ * @param arr Pointer to the array to be sorted.
+ * @param size The size of the array.
  */
 template <typename T>
 void bucketSort(T arr[], int size) {
@@ -280,9 +282,9 @@ void bucketSort(T arr[], int size) {
 /**
  * @brief Radix Count (Radix Sort) Helper
  * 
- * @param arr array long long pointer
- * @param n int
- * @param exp long
+ * @param arr Pointer to the array to be sorted.
+ * @param n The size of the array.
+ * @param exp The exponent for the radix sort.
  */
 void radix_count(long long arr[], int n, long exp) {
     const int RANGE = 10;
@@ -300,10 +302,10 @@ void radix_count(long long arr[], int n, long exp) {
 
 /**
  * @brief Radix Sort
- * @attention best: kn | average: kn | worst: kn
+ * @attention best: kn | average: kn | worst: kn.
  * 
- * @param arr array long long pointer
- * @param n int
+ * @param arr Pointer to the array to be sorted.
+ * @param n The size of the array.
  */
 void radix_sort(long long arr[], int n) {
     long long max = arr[0];

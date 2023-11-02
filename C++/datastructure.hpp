@@ -1,7 +1,7 @@
 /**
  * @brief Stack Data Structure Using Template Data Type
  * 
- * @tparam T 
+ * @tparam T Data type for the stack
  */
 template <typename T>
 class Stack {
@@ -61,11 +61,10 @@ public:
     }
 };
 
-
 /**
  * @brief Queue Data Structure Using Template Data Type
  * 
- * @tparam T 
+ * @tparam T Data type for the queue
  */
 template <typename T>
 class Queue {
@@ -134,7 +133,7 @@ public:
 /**
  * @brief Circular Queue Data Structure Using Template Data Type
  * 
- * @tparam T 
+ * @tparam T Data type for the circular queue
  */
 template <typename T>
 class CircularQueue {
@@ -207,19 +206,20 @@ public:
 };
 
 /**
- * @brief Linked List (Single) Node Sturct Containing Template data and Template Pointer next
+ * @brief Linked List (Single) Node Structure Containing Template data and Template Pointer next
  * 
- * @tparam T 
+ * @tparam T Data type for linked list node
  */
 template <typename T>
 struct linkedListNode {
     T data;
     linkedListNode<T>* next;
 };
+
 /**
  * @brief Linked List (Single) Data Structure Using Template Data Type
  * 
- * @tparam T 
+ * @tparam T Data type for linked list
  */
 template <typename T>
 class LinkedList {
@@ -380,21 +380,21 @@ public:
 };
 
 /**
- * @brief Linked List (Double) Node Sturct Containing Template data and Template Pointer next
+ * @brief Node structure for a double linked list containing a template data and template pointers to the next and previous nodes.
  * 
- * @tparam T 
+ * @tparam T Data type for the node.
  */
 template <typename T>
-struct doubleLinedListNode {
+struct DoubleLinkedListNode {
     T data;
-    doubleLinedListNode<T>* next;
-    doubleLinedListNode<T>* prev;  // New previous pointer for doubly linked list
+    DoubleLinkedListNode<T>* next;
+    DoubleLinkedListNode<T>* prev;
 };
 
 /**
- * @brief Linked List (Double) Data Structure Using Template Data Type
+ * @brief Double Linked List data structure using a template data type.
  * 
- * @tparam T 
+ * @tparam T Data type for the list.
  */
 template <typename T>
 class DoubleLinkedList {
@@ -584,9 +584,9 @@ public:
 };
 
 /**
- * @brief Stack Using Linked List Data Structure Using Template Data Type
+ * @brief Stack data structure using a linked list with a template data type.
  * 
- * @tparam T 
+ * @tparam T Data type for the stack.
  */
 template <typename T>
 class StackLL {
@@ -622,9 +622,9 @@ public:
 };
 
 /**
- * @brief Queue Using Linked List Data Structure Using Template Data Type
+ * @brief Queue data structure using a linked list with a template data type.
  * 
- * @tparam T 
+ * @tparam T Data type for the queue.
  */
 template <typename T>
 class QueueLL {
@@ -660,9 +660,9 @@ public:
 };
 
 /**
- * @brief Tree node containing the template data and tempalte pointer to right and left branches
+ * @brief Node structure for a binary tree containing template data and template pointers to the left and right branches.
  * 
- * @tparam T 
+ * @tparam T Data type for the tree node.
  */
 template <typename T>
 struct treeNode {
@@ -678,9 +678,9 @@ struct treeNode {
 };
 
 /**
- * @brief Binary Tree Data Structure Using Template Data Type
+ * @brief Binary Tree data structure using a template data type.
  * 
- * @tparam T 
+ * @tparam T Data type for the tree.
  */
 template <typename T>
 class BinaryTree {
