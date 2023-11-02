@@ -50,8 +50,14 @@ public:
         this->size = newSize;
     }
 
-    int stackSize() const {
+    int getSize() const {
         return this->size;
+    }
+
+    void print() {
+        for (int i = top; i >= 0; i--)
+            std::cout << stack[i] << " ";
+        std::cout << std::endl;
     }
 };
 
@@ -114,8 +120,14 @@ public:
         this->size = newSize;
     }
 
-    int queueSize() const {
+    int getSize() const {
         return this->size;
+    }
+
+    void print() {
+        for (int i = front; i <= rear; i++)
+            std::cout << queue[i] << " ";
+        std::cout << std::endl;
     }
 };
 
@@ -179,6 +191,18 @@ public:
 
     bool isFull() {
         return (rear + 1) % size == front;
+    }
+
+    void print() {
+        if (!isEmpty()) {
+            int current = front;
+            while (true) {
+                std::cout << circularQueue[current] << " ";
+                if (current == rear) break;
+                current = (current + 1) % size;
+            }
+        }
+        std::cout << std::endl;
     }
 };
 
@@ -350,8 +374,8 @@ public:
     void print() {
         linkedListNode<T>* temp;
         for (temp = front; temp != nullptr; temp = temp->next)
-            cout << temp->data << "\t";
-        cout << "\n";
+            std::cout << temp->data << "\t";
+        std::cout << "\n";
     }
 };
 /**
@@ -553,8 +577,8 @@ public:
     void print() {
         doubleLinedListNode<T>* temp;
         for (temp = front; temp != nullptr; temp = temp->next)
-            cout << temp->data << "\t";
-        cout << "\n";
+            std::cout << temp->data << "\t";
+        std::cout << "\n";
     }
 };
 
