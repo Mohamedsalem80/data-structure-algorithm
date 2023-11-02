@@ -327,15 +327,15 @@ public:
         return datum;
     }
 
-    T peek_first(){
+    T peek_first() const {
         return this->front->data;
     }
 
-    T peek_last(){
+    T peek_last() const {
         return this->rear->data;
     }
 
-    bool isEmpty() {
+    bool isEmpty() const {
         return front == nullptr;
     }
 
@@ -345,6 +345,13 @@ public:
 
     int getSize(){
         return size;
+    }
+
+    void print() {
+        linkedListNode<T>* temp;
+        for (temp = front; temp != nullptr; temp = temp->next)
+            cout << temp->data << "\t";
+        cout << "\n";
     }
 };
 /**
@@ -542,6 +549,13 @@ public:
     int getSize() {
         return size;
     }
+
+    void print() {
+        doubleLinedListNode<T>* temp;
+        for (temp = front; temp != nullptr; temp = temp->next)
+            cout << temp->data << "\t";
+        cout << "\n";
+    }
 };
 
 /**
@@ -564,9 +578,9 @@ public:
         return list.delete_last();
     }
 
-    T& peek() const {
+    T peek() const {
         if (isEmpty()) throw std::out_of_range("Stack is empty");
-        return list.peek_first();
+        return list.peek_last();
     }
 
     bool isEmpty() const {
@@ -575,6 +589,10 @@ public:
 
     int size() const {
         return list.getSize();
+    }
+
+    void print() {
+        list.print();
     }
 };
 
@@ -590,7 +608,7 @@ private:
 
 public:
     void enqueue(const T& item) {
-        list.insert_first(item);
+        list.insert_last(item);
     }
 
     T dequeue() {
@@ -598,7 +616,7 @@ public:
         return list.delete_first();
     }
 
-    T& peek() const {
+    T peek() const {
         if (isEmpty()) throw std::out_of_range("Queue is empty");
         return list.peek_first();
     }
@@ -609,6 +627,10 @@ public:
 
     int size() const {
         return list.getSize();
+    }
+
+    void print() {
+        list.print();
     }
 };
 
