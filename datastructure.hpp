@@ -378,6 +378,7 @@ public:
         std::cout << "\n";
     }
 };
+
 /**
  * @brief Linked List (Double) Node Sturct Containing Template data and Template Pointer next
  * 
