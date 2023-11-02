@@ -621,7 +621,7 @@ public:
 };
 
 /**
- * @brief Queue Using Double Linked List Data Structure Using Template Data Type
+ * @brief Queue Using Linked List Data Structure Using Template Data Type
  * 
  * @tparam T 
  */
