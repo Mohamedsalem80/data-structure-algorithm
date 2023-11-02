@@ -294,6 +294,12 @@ class LinkedList:
             current = current.next
         print()
 
+class DoubleListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
 class DoubleLinkedList:
     def __init__(self):
         self.front = None
