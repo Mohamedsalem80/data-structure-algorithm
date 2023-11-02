@@ -19,7 +19,7 @@
 - StackLL (Stack Using Linked List)
 - Queue
 - CircularQueue
-- QueueLL (Queue Using Lnked List)
+- QueueLL (Queue Using Linked List)
 - Linked List
 - Double Linked List
 - Binary Tree
