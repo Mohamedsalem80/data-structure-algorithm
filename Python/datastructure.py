@@ -237,3 +237,65 @@ class LinkedList:
     def insert_first(self, datum):
         temp = LinkedListNode(datum)
         temp.next = None
+
+class DoubleListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class DoubleLinkedList:
+    def __init__(self):
+        self.front = None
+        self.rear = None
+        self.size = 0
+
+    def insert_in_order(self, data):
+        new_node = DoubleListNode(data)
+        if not self.front:
+            self.front = self.rear = new_node
+        else:
+            current = self.front
+            while current and data > current.data:
+                current = current.next
+            if current:
+                new_node.next = current
+                new_node.prev = current.prev
+                current.prev = new_node
+                if new_node.prev:
+                    new_node.prev.next = new_node
+                if current == self.front:
+                    self.front = new_node
+            else:
+                new_node.prev = self.rear
+                self.rear.next = new_node
+                self.rear = new_node
+        self.size += 1
+
+    def delete_item(self, data):
+        if not self.front:
+            return False
+        current = self.front
+        while current:
+            if current.data == data:
+                if current.prev:
+                    current.prev.next = current.next
+                else:
+                    self.front = current.next
+                if current.next:
+                    current.next.prev = current.prev
+                else:
+                    self.rear = current.prev
+                self.size -= 1
+                return True
+            current = current.next
+        return False
+
+    # Other methods (get_item_index, delete_index, insert_index, insert_first, insert_last, delete_first, delete_last, etc.)
+
+    def print(self):
+        current = self.front
+        while current:
+            print(current.data, end=" ")
+            current = current.next
+        print()
