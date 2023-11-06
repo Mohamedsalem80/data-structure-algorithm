@@ -239,15 +239,16 @@ public:
     }
 
     void insert_in_order(T datum) {
-        linkedListNode<T>* temp, *dtemp;
+        linkedListNode<T>* temp, ctemp, *dtemp;
         temp = new linkedListNode<T>;
         temp->data = datum;
         temp->next = nullptr;
         if (rear == nullptr) rear = front = temp;
         else {
-            for (dtemp = front; (dtemp->next != nullptr && dtemp->data <= datum); dtemp = dtemp->next);
-            this->front = temp;
-            temp->next = dtemp;
+            for (dtemp = front; (dtemp->next != nullptr && dtemp->next->data <= datum); dtemp = dtemp->next);
+            ctemp = dtemp->next;
+            dtemp->next = temp;
+            temp->next = ctemp;
         }
         size++;
     }
