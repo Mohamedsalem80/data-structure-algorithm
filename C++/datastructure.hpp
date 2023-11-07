@@ -422,7 +422,7 @@ public:
             rear = front = temp;
         }
         else {
-            for (dtemp = front; (dtemp->next != nullptr && dtemp->data <= datum); dtemp = dtemp->next);
+            for (dtemp = front; (dtemp->next != nullptr && dtemp->next->data <= datum); dtemp = dtemp->next);
             this->front = temp;
             temp->next = dtemp;
             if (dtemp->prev) {
