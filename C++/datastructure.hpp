@@ -239,7 +239,7 @@ public:
     }
 
     void insert_in_order(T datum) {
-        linkedListNode<T>* temp, ctemp, *dtemp;
+        linkedListNode<T>* temp, *ctemp, *dtemp;
         temp = new linkedListNode<T>;
         temp->data = datum;
         temp->next = nullptr;
