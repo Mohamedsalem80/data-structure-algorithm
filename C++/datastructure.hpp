@@ -775,9 +775,13 @@ public:
         }
         insertRecursive(root, value);
     }
-    
+
+    void remove(T value) {
+        root = removeRecursive(root, value);
+    }
+
 private:
-    void insertRecursive(treeNode<T>* currenttreeNode, T value) {
+    void insertRecursive(treeNode<T>* currentTreeNode, T value) {
         if (value < currenttreeNode->data) {
             if (currenttreeNode->left == nullptr) currenttreeNode->left = new treeNode<T>(value);
             else insertRecursive(currenttreeNode->left, value);
@@ -785,5 +789,39 @@ private:
             if (currenttreeNode->right == nullptr) currenttreeNode->right = new treeNode<T>(value);
             else insertRecursive(currenttreeNode->right, value);
         }
+    }
+
+    treeNode<T>* removeRecursive(treeNode<T>* currentTreeNode, T value) {
+        if (currentTreeNode == nullptr) return currentTreeNode;
+        if (value < currentTreeNode->data) {
+            currentTreeNode->left = removeRecursive(currentTreeNode->left, value);
+        } else if (value > currentTreeNode->data) {
+            currentTreeNode->right = removeRecursive(currentTreeNode->right, value);
+        } else {
+            if (currentTreeNode->left == nullptr) {
+                treeNode<T>* temp = currentTreeNode->right;
+                delete currentTreeNode;
+                return temp;
+            } else if (currentTreeNode->right == nullptr) {
+                treeNode<T>* temp = currentTreeNode->left;
+                delete currentTreeNode;
+                return temp;
+            }
+            treeNode<T>* temp = minValueNode(currentTreeNode->right);
+            currentTreeNode->data = temp->data;
+            currentTreeNode->right = removeRecursive(currentTreeNode->right, temp->data);
+        }
+
+        return currentTreeNode;
+    }
+
+    treeNode<T>* minValueNode(treeNode<T>* node) {
+        treeNode<T>* current = node;
+
+        while (current->left != nullptr) {
+            current = current->left;
+        }
+
+        return current;
     }
 };
