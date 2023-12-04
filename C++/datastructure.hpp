@@ -873,7 +873,7 @@ private:
 /**
  * @brief Graph data structure using a template data types.
  * 
- * @tparam T Data type for the tree.
+ * @tparam T Data type for the Graph.
  * @tparam MaxVertices 
  */
 template <typename T, long long MaxVertices>
@@ -1033,5 +1033,103 @@ private:
         }
 
         return -1;
+    }
+};
+
+/**
+ * @brief MaxHeap data structure using a template data types.
+ * 
+ * @tparam T Data type for the MaxHeap.
+ * @tparam MaxSize 
+ */
+template <typename T, int MaxSize>
+class MaxHeap {
+private:
+    T heap[MaxSize];
+    int heapSize;
+
+    // Helper functions
+    void heapifyUp(int index) {
+        while (index > 0) {
+            int parentIndex = (index - 1) / 2;
+            if (heap[index] > heap[parentIndex]) {
+                std::swap(heap[index], heap[parentIndex]);
+                index = parentIndex;
+            } else {
+                break;
+            }
+        }
+    }
+
+    void heapifyDown(int index) {
+        int leftChild = 2 * index + 1;
+        int rightChild = 2 * index + 2;
+        int largest = index;
+
+        if (leftChild < heapSize && heap[leftChild] > heap[largest]) {
+            largest = leftChild;
+        }
+
+        if (rightChild < heapSize && heap[rightChild] > heap[largest]) {
+            largest = rightChild;
+        }
+
+        if (largest != index) {
+            std::swap(heap[index], heap[largest]);
+            heapifyDown(largest);
+        }
+    }
+
+public:
+    // Constructor
+    MaxHeap() : heapSize(0) {}
+
+    // Insert a new element into the heap
+    void insert(const T& value) {
+        if (heapSize < MaxSize) {
+            heap[heapSize++] = value;
+            heapifyUp(heapSize - 1);
+        } else {
+            throw std::out_of_range("Heap is full");
+        }
+    }
+
+    // Remove and return the maximum element from the heap
+    T extractMax() {
+        if (heapSize > 0) {
+            T max = heap[0];
+            heap[0] = heap[--heapSize];
+            heapifyDown(0);
+            return max;
+        } else {
+            throw std::out_of_range("Heap is empty");
+        }
+    }
+
+    // Get the maximum element without removing it
+    T getMax() const {
+        if (heapSize > 0) {
+            return heap[0];
+        } else {
+            throw std::out_of_range("Heap is empty");
+        }
+    }
+
+    // Check if the heap is empty
+    bool isEmpty() const {
+        return heapSize == 0;
+    }
+
+    // Get the size of the heap
+    int size() const {
+        return heapSize;
+    }
+
+    // Print the elements of the heap
+    void print() const {
+        for (int i = 0; i < heapSize; ++i) {
+            std::cout << heap[i] << " ";
+        }
+        std::cout << std::endl;
     }
 };
