@@ -764,9 +764,7 @@ private:
     treeNode<T>* root;
 
 public:
-    BinaryTree() {
-        root = nullptr;
-    }
+    BinaryTree() : root(nullptr) {}
 
     void insert(T value) {
         if (root == nullptr) {
@@ -780,14 +778,26 @@ public:
         root = removeRecursive(root, value);
     }
 
+    void bfs() {
+        bfsTraversal(root);
+    }
+
+    void dfs() {
+        dfsTraversal(root);
+    }
+
 private:
     void insertRecursive(treeNode<T>* currentTreeNode, T value) {
-        if (value < currenttreeNode->data) {
-            if (currenttreeNode->left == nullptr) currenttreeNode->left = new treeNode<T>(value);
-            else insertRecursive(currenttreeNode->left, value);
+        if (value < currentTreeNode->data) {
+            if (currentTreeNode->left == nullptr)
+                currentTreeNode->left = new treeNode<T>(value);
+            else
+                insertRecursive(currentTreeNode->left, value);
         } else {
-            if (currenttreeNode->right == nullptr) currenttreeNode->right = new treeNode<T>(value);
-            else insertRecursive(currenttreeNode->right, value);
+            if (currentTreeNode->right == nullptr)
+                currentTreeNode->right = new treeNode<T>(value);
+            else
+                insertRecursive(currentTreeNode->right, value);
         }
     }
 
@@ -823,5 +833,39 @@ private:
         }
 
         return current;
+    }
+
+    void bfsTraversal(treeNode<T>* startNode) {
+        if (startNode == nullptr) return;
+
+        Queue<treeNode<T>*> queue;
+        queue.enqueue(startNode);
+
+        while (!queue.isEmpty()) {
+            treeNode<T>* current = queue.dequeue();
+            std::cout << current->data << " ";
+
+            if (current->left != nullptr) queue.enqueue(current->left);
+            if (current->right != nullptr) queue.enqueue(current->right);
+        }
+
+        std::cout << std::endl;
+    }
+
+    void dfsTraversal(treeNode<T>* startNode) {
+        if (startNode == nullptr) return;
+
+        Stack<treeNode<T>*> stack;
+        stack.push(startNode);
+
+        while (!stack.isEmpty()) {
+            treeNode<T>* current = stack.pop();
+            std::cout << current->data << " ";
+
+            if (current->right != nullptr) stack.push(current->right);
+            if (current->left != nullptr) stack.push(current->left);
+        }
+
+        std::cout << std::endl;
     }
 };
