@@ -869,3 +869,169 @@ private:
         std::cout << std::endl;
     }
 };
+
+/**
+ * @brief Graph data structure using a template data types.
+ * 
+ * @tparam T Data type for the tree.
+ * @tparam MaxVertices 
+ */
+template <typename T, long long MaxVertices>
+class Graph {
+private:
+    T adjacencyList[MaxVertices][MaxVertices];
+    long long vertexCount;
+
+public:
+    Graph() : vertexCount(0) {}
+
+    void addVertex(const T& vertex) {
+        if (!containsVertex(vertex)) {
+            adjacencyList[vertexCount][0] = vertex;
+            ++vertexCount;
+        }
+    }
+
+    void addEdge(const T& source, const T& destination) {
+        addVertex(source);
+        addVertex(destination);
+
+        long long sourceIndex = findVertexIndex(source);
+        adjacencyList[sourceIndex][vertexCount(sourceIndex)] = destination;
+    }
+
+    void print() const {
+        for (long long i = 0; i < vertexCount; ++i) {
+            std::cout << adjacencyList[i][0] << " -> ";
+            for (long long j = 1; j <= vertexCount(i); ++j) {
+                std::cout << adjacencyList[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    void bfs(const T& start) const {
+        bool visited[MaxVertices] = {false};
+        T queue[MaxVertices];
+        long long front = 0, rear = 0;
+
+        long long startIdx = findVertexIndex(start);
+        if (startIdx != vertexCount) {
+            visited[startIdx] = true;
+            queue[rear++] = start;
+
+            while (front != rear) {
+                T current = queue[front++];
+                std::cout << current << " ";
+
+                long long currentIdx = findVertexIndex(current);
+                for (long long i = 1; i <= vertexCount(currentIdx); ++i) {
+                    T neighbor = adjacencyList[currentIdx][i];
+                    long long neighborIdx = findVertexIndex(neighbor);
+                    if (!visited[neighborIdx]) {
+                        visited[neighborIdx] = true;
+                        queue[rear++] = neighbor;
+                    }
+                }
+            }
+        }
+
+        std::cout << std::endl;
+    }
+
+    void dfs(const T& start) const {
+        bool visited[MaxVertices] = {false};
+        dfsRecursive(findVertexIndex(start), visited);
+        std::cout << std::endl;
+    }
+
+    int shortestPath(const T& start, const T& destination) const {
+        long long startIdx = findVertexIndex(start);
+        long long destIdx = findVertexIndex(destination);
+
+        if (startIdx == vertexCount || destIdx == vertexCount) {
+            return -1;
+        }
+
+        int pathLength = findShortestPathLength(startIdx, destIdx);
+        return pathLength;
+    }
+
+private:
+    bool containsVertex(const T& vertex) const {
+        for (long long i = 0; i < vertexCount; ++i) {
+            if (adjacencyList[i][0] == vertex) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    long long findVertexIndex(const T& vertex) const {
+        for (long long i = 0; i < vertexCount; ++i) {
+            if (adjacencyList[i][0] == vertex) {
+                return i;
+            }
+        }
+        return vertexCount;
+    }
+
+    long long vertexCount(long long index) const {
+        long long count = 0;
+        while (adjacencyList[index][count + 1] != T()) {
+            ++count;
+        }
+        return count;
+    }
+
+    void dfsRecursive(long long vertexIdx, bool visited[]) const {
+        visited[vertexIdx] = true;
+        std::cout << adjacencyList[vertexIdx][0] << " ";
+
+        for (long long i = 1; i <= vertexCount(vertexIdx); ++i) {
+            T neighbor = adjacencyList[vertexIdx][i];
+            long long neighborIdx = findVertexIndex(neighbor);
+            if (!visited[neighborIdx]) {
+                dfsRecursive(neighborIdx, visited);
+            }
+        }
+    }
+
+    int findShortestPathLength(long long startIdx, long long destIdx) const {
+        bool visited[MaxVertices] = {false};
+        int distance[MaxVertices];
+
+        for (long long i = 0; i < MaxVertices; ++i) {
+            distance[i] = -1;
+        }
+
+        visited[startIdx] = true;
+        distance[startIdx] = 0;
+
+        T queue[MaxVertices];
+        long long front = 0, rear = 0;
+        queue[rear++] = adjacencyList[startIdx][0];
+
+        while (front != rear) {
+            T current = queue[front++];
+            long long currentIdx = findVertexIndex(current);
+
+            for (long long i = 1; i <= vertexCount(currentIdx); ++i) {
+                T neighbor = adjacencyList[currentIdx][i];
+                long long neighborIdx = findVertexIndex(neighbor);
+
+                if (!visited[neighborIdx]) {
+                    visited[neighborIdx] = true;
+                    distance[neighborIdx] = distance[currentIdx] + 1;
+                    queue[rear++] = neighbor;
+
+                    if (neighbor == adjacencyList[destIdx][0]) {
+                        return distance[neighborIdx];
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
+};
