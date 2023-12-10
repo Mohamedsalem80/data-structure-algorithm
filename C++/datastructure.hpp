@@ -448,11 +448,12 @@ template <typename T>
 class DoubleLinkedList {
 private:
     doubleLinkedListNode<T>* start;
+    doubleLinkedListNode<T>* end;
     int size;
 
 public:
     DoubleLinkedList() {
-        start = nullptr;
+        start = end = nullptr;
         size = 0;
     }
 
@@ -465,24 +466,31 @@ public:
         temp->data = data;
         temp->next = temp->prev = nullptr;
 
-        if (start == nullptr) start = temp;
-        else {
+        if (start == nullptr) {
+            start = end = temp;
+        } else {
             doubleLinkedListNode<T>* dtemp = start;
             doubleLinkedListNode<T>* prev = nullptr;
+
             while (dtemp != nullptr && dtemp->data <= data) {
                 prev = dtemp;
                 dtemp = dtemp->next;
             }
+
             temp->next = dtemp;
             temp->prev = prev;
 
             if (prev) prev->next = temp;
             else start = temp;
+
             if (dtemp) dtemp->prev = temp;
+
+            if (dtemp == nullptr) {
+                end = temp;
+            }
         }
         size++;
     }
-
 
     bool delete_item(T data) {
         doubleLinkedListNode<T>* temp = start;
@@ -499,6 +507,11 @@ public:
 
             delete temp;
             size--;
+
+            if (temp->next == nullptr) {
+                end = prev;
+            }
+
             return true;
         }
         return false;
@@ -532,6 +545,10 @@ public:
 
         delete dtemp;
         size--;
+
+        if (temp->next == nullptr) {
+            end = temp;
+        }
     }
 
     void insert_index(T item, int index) {
@@ -557,6 +574,10 @@ public:
             if (dtemp) dtemp->prev = itemp;
 
             itemp->prev = temp;
+
+            if (dtemp == nullptr) {
+                end = itemp;
+            }
         }
         size++;
     }
@@ -566,8 +587,9 @@ public:
         temp->data = data;
         temp->next = temp->prev = nullptr;
 
-        if (start == nullptr) start = temp;
-        else {
+        if (start == nullptr) {
+            start = end = temp;
+        } else {
             temp->next = start;
             start->prev = temp;
             start = temp;
@@ -580,14 +602,12 @@ public:
         temp->data = data;
         temp->next = temp->prev = nullptr;
 
-        if (start == nullptr) start = temp;
-        else {
-            doubleLinkedListNode<T>* last = start;
-
-            while (last->next != nullptr) last = last->next;
-
-            last->next = temp;
-            temp->prev = last;
+        if (start == nullptr) {
+            start = end = temp;
+        } else {
+            end->next = temp;
+            temp->prev = end;
+            end = temp;
         }
         size++;
     }
@@ -602,6 +622,10 @@ public:
 
         delete temp;
         size--;
+
+        if (size == 0) {
+            end = nullptr;
+        }
 
         return data;
     }
@@ -620,10 +644,11 @@ public:
             temp->next = nullptr;
         } else {
             delete start;
-            start = nullptr;
+            start = end = nullptr;
         }
 
         size--;
+
         return data;
     }
 
@@ -645,6 +670,7 @@ public:
 
     void clear() {
         while (!!start) delete_first();
+        end = nullptr;
     }
 
     int getSize() const {
@@ -654,6 +680,13 @@ public:
     void print() const {
         doubleLinkedListNode<T>* temp;
         for (temp = start; temp != nullptr; temp = temp->next)
+            std::cout << temp->data << "\t";
+        std::cout << "\n";
+    }
+
+    void print_reverse() const {
+        doubleLinkedListNode<T>* temp;
+        for (temp = end; temp != nullptr; temp = temp->prev)
             std::cout << temp->data << "\t";
         std::cout << "\n";
     }
